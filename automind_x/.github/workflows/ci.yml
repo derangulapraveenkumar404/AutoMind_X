@@ -1,0 +1,23 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -r requirements-dev.txt ruff mypy bandit hypothesis pip-audit
+      - run: ruff check . && ruff format --check .
+      - run: mypy automind main.py
+      - run: bandit -q -r automind main.py
+      - run: pip-audit -r requirements.txt
+      - run: python -m pytest --cov=automind --cov-fail-under=90
+      - run: python main.py --quick --outdir /tmp/out --json --quiet

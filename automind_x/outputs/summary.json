@@ -1,0 +1,27 @@
+{
+  "seed": 42,
+  "budget": {
+    "max_params": null,
+    "max_cost": null
+  },
+  "runtime_metric": "proxy",
+  "selection": "balanced",
+  "selected": {
+    "layers": [
+      8
+    ],
+    "activation": "relu",
+    "lr": 0.03,
+    "val_accuracy": 0.788,
+    "params": 195,
+    "found_in_generation": 10
+  },
+  "holdout": {
+    "test_accuracy": 0.794,
+    "cost_s": 0.033345,
+    "params": 195
+  },
+  "trainings": 181,
+  "cache_hits": 1,
+  "final_hypervolume": 0.7874
+}
